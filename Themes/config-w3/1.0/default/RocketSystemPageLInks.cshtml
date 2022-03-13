@@ -1,0 +1,87 @@
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using RocketCatalog.Components;
+@using Simplisity;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/AppThemes/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var portalCatalog = (PortalCatalogLimpet)Model.List.First();
+    var info = portalCatalog.Info;
+    var linkLP = 0;
+    var globalSettings = new SystemGlobalData();
+    var defaultsData = new DefaultsLimpet();
+}
+
+
+<div id="sidemenupageandlinksdata" class="w3-container a-panelsidemenu" style="display:none;">
+
+    <div class="w3-row linklistdatasection  w3-margin-bottom">
+
+        <div class="w3-row w3-padding">
+            <div class="w3-col m9 w3-padding">
+                @ResourceKey("Help.pagelinks_urlredirects")
+                <br />
+                <br />
+                @ResourceKey("Help.example"):
+                <input s-update="ignore" value="?articleid={articleid}&{articlename}" class="w3-input w3-border" disabled />
+            </div>
+            <div class="w3-col m3 w3-right w3-padding">
+                <br />
+                {articleid} = articleid<br />
+                {articlename} = Product Name<br />
+                {catid} = catid<br />
+                {categoryname} = Category Name<br />
+                {page} = Page Number<br />
+                {culturecode} = culture code (en-US)<br />
+                {language} = language code  (en)<br />
+                {country} = country code (US)<br />
+            </div>
+        </div>
+
+        <div class="w3-padding w3-card">
+            <div class="w3-row w3-padding">
+                <div class="w3-col m8">
+                    <label>@ResourceKey("Help.pageslinks_articlelist")</label>
+                    @TextBox(info, "genxml/textbox/articlelisturl", " class='w3-input w3-border' autocomplete='off'", "/?catid={catid}&{categoryname}", false, linkLP)
+                </div>
+                <div class="w3-col m4 w3-padding">
+                    <label>@ResourceKey("Help.pageslinks_articlelist", "", "Help")</label>
+                </div>
+            </div>
+            <div class="w3-row w3-padding">
+                <div class="w3-col m8">
+                    <label>@ResourceKey("Help.pageslinks_articledetail", "", "Text")</label>
+                    @TextBox(info, "genxml/textbox/articledetailurl", " class='w3-input w3-border' autocomplete='off'", "/?catid={catid}&articleid={articleid}&{articlename}", false, linkLP)
+                </div>
+                <div class="w3-col m4 w3-padding">
+                    <label>@ResourceKey("Help.pageslinks_articledetail", "", "Help")</label>
+                </div>
+            </div>
+            <div class="w3-row w3-padding">
+                <div class="w3-col m8">
+                    <label>@ResourceKey("Help.pageslinks_articlepaging")</label>
+                    @TextBox(info, "genxml/textbox/articlepagingurl", " class='w3-input w3-border' autocomplete='off'", "/?catid={catid}&p={page}&ps={pagesize}&{categoryname}", false, linkLP)
+                </div>
+                <div class="w3-col m4 w3-padding">
+                    <label>@ResourceKey("Help.pageslinks_articlepaging", "", "Help")</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+    });
+
+</script>

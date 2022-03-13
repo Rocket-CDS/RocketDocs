@@ -1,0 +1,46 @@
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using RocketCatalog.Components;
+@using Simplisity;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/AppThemes/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/SystemData/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var portalCatalog = (PortalCatalogLimpet)Model.List.First();
+    var info = portalCatalog.Info;
+}
+
+<div id="sidemenutoolsdata" class="w3-container a-panelsidemenu" style="display:none;">
+
+    <div class="w3-container">
+
+        <div class="w3-row w3-margin">
+            <div class="w3-quarter w3-padding">
+                <div class="w3-button w3-blue simplisity_click" s-cmd="portalcatalog_validatecatalog" s-return='#completedmodelmsgreturn' s-fields='' style="width:100%;">@ResourceKey("DNNRocket.validate")</div>
+            </div>
+            <div class="w3-threequarter">
+            </div>
+        </div>
+        <div class="w3-row w3-margin">
+            <div class="w3-quarter w3-padding">
+                <div class="w3-button w3-blue simplisity_confirmclick" s-confirm="@ResourceKey("RCP.export") ?" s-cmd="portalCatalogs_export" s-return='#completedmodelmsgreturn' s-fields='{"portalid":"@(info.PortalId)"}' s-post="" style="width:100%;">@ButtonText(ButtonTypes.export)</div>
+            </div>
+            <div class="w3-threequarter">
+            </div>
+        </div>
+        <div class="w3-row w3-margin">
+            <div class="w3-quarter w3-padding">
+                <label>@ResourceKey("Help.schedulerrunhours")</label>
+                @TextBox(info, "genxml/schedulerrunhours", "class='w3-input w3-border' maxlength='4'  ", "24")
+            </div>
+            <div class="w3-threequarter">
+                @ResourceKey("Help.schedulerrunhours", "", "Help")
+            </div>
+        </div>
+
+    </div>
+
+</div>

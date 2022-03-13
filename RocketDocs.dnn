@@ -1,7 +1,7 @@
 ﻿<dotnetnuke type="Package" version="5.0">
 	<packages>
     
-		<package name="RocketDocs" type="Library" version="1.0.2">
+		<package name="RocketDocs" type="Library" version="1.0.0">
 			<friendlyName>RocketDocs</friendlyName>
 			<description>RocketDocs</description>
       <iconFile></iconFile>
@@ -27,38 +27,25 @@
       </dependencies>
             
       <components>
-        <component type="Script">
-          <scripts>
-            <basePath>DesktopModules\DNNrocketModules\RocketDocs\Installation</basePath>
-            <script type="Install">
-              <name>01.00.00.SqlDataProvider</name>
-              <version>01.00.00</version>
-            </script>
-            <script type="UnInstall">
-              <name>Uninstall.SqlDataProvider</name>
-              <version>01.00.00</version>
-            </script>
-          </scripts>
-        </component>
         
         <component type="ResourceFile">
-		<resourceFiles>
-			<basePath>DesktopModules\DNNrocketModules\RocketDocs</basePath>
-			<resourceFile>
-				<name>Resource.zip</name>
-			</resourceFile>
-		</resourceFiles>
-	</component>
+				<resourceFiles>
+					<basePath>DesktopModules\DNNrocketModules\RocketDocs</basePath>
+					<resourceFile>
+						<name>Resource.zip</name>
+					</resourceFile>
+				</resourceFiles>
+			</component>
 
-        <component type="Assembly">
-		<assemblies>
-			<assembly>
-				<path>bin</path>
-				<name>RocketDocs.dll</name>
-				<sourceFileName>RocketDocs.dll</sourceFileName>
-			</assembly>
-		</assemblies>
-	</component>
+      <component type="Assembly">
+				<assemblies>
+					<assembly>
+						<path>bin</path>
+						<name>RocketDocs.dll</name>
+						<sourceFileName>RocketDocs.dll</sourceFileName>
+					</assembly>
+				</assemblies>
+			</component>
 
       </components>
 	</package>

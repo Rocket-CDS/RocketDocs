@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplisity", "..\..\DNNrock
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketPortal", "..\..\DNNrocket\RocketPortal\RocketPortal.csproj", "{D4A7DCF0-1097-456B-83C0-C42D50D97698}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketCatalog", "..\RocketCatalog\RocketCatalog.csproj", "{F7ECAF27-E2F6-4869-999C-D964F5C43F23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Comp All|Any CPU = Comp All|Any CPU
@@ -50,6 +52,16 @@ Global
 		{D4A7DCF0-1097-456B-83C0-C42D50D97698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4A7DCF0-1097-456B-83C0-C42D50D97698}.Razor|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A7DCF0-1097-456B-83C0-C42D50D97698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Comp All|Any CPU.ActiveCfg = Comp All|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Comp All|Any CPU.Build.0 = Comp All|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.CompAll|Any CPU.ActiveCfg = CompAll|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.CompAll|Any CPU.Build.0 = CompAll|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Razor|Any CPU.ActiveCfg = Razor|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Razor|Any CPU.Build.0 = Razor|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7ECAF27-E2F6-4869-999C-D964F5C43F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

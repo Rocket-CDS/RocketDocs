@@ -24,12 +24,6 @@
   <file include='false'>
   </file>
   <file include='true'>
-    <!-- All paths should be from the source root (project root) -->
-    <!-- These files will be NOT in the Resource.zip, they will be on the root of the install zip -->
-    <value>\Installation\01.00.00.SqlDataProvider</value>
-    <value>\Installation\Uninstall.SqlDataProvider</value>
-    <value>\Installation\SystemDefaults.rules</value>
-    <value>\system.rules</value>
   </file>    
   <assembly>
 		<value>RocketDocs.dll</value>
