@@ -1,0 +1,82 @@
+@inherits RocketDocs.Components.RocketDocsTokens<Simplisity.SimplisityRazor>
+@using RocketDocs.Components;
+@using Simplisity;
+@using DNNrocketAPI.Components;
+
+@{
+    var portalContent = (PortalContentLimpet)Model.List.First();
+    var info = portalContent.Info;
+    var systemData = new SystemLimpet("rocketdocs");
+}
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/AppThemes/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/" + systemData.SystemKey + "/App_LocalResources/")
+
+<div id="sidemenugeneraldata" class="w3-container a-panelsidemenu">
+
+    <div class="w3-row">
+        <div class="w3-half">
+            <div class="w3-row w3-padding">
+                <label class="">@ResourceKey("RCP.securitykey")</label><br />
+                @TextBox(info, "genxml/securitykey", "class='w3-input w3-border' ", GeneralUtils.GetGuidKey(), false)
+            </div>
+            <div class="w3-row">
+            </div>
+        </div>
+        <div class="w3-half">
+            <div class="w3-half">
+                <div class="w3-row w3-padding">
+                    <label class="">@ResourceKey("RCP.maxarticles")</label>
+                    @TextBox(info, "genxml/maxarticles", "class='w3-input w3-border' style='width:120px;' ", "100", false)
+                </div>
+                <div class="w3-row w3-padding">
+                    <label class="">@ResourceKey("RCP.articlesimagelimit")</label>
+                    @TextBox(info, "genxml/articlesimagelimit", "class='w3-input w3-border' style='width:120px;' ", "1", false)
+                </div>
+                <div class="w3-row w3-padding">
+                    <label class="">@ResourceKey("RCP.articlesdocumentlimit")</label>
+                    @TextBox(info, "genxml/articlesdocumentlimit", "class='w3-input w3-border' style='width:120px;' ", "0", false)
+                </div>
+            </div>
+            <div class="w3-half">
+                <div class="w3-row w3-padding">
+                    <label class="">@ResourceKey("DNNrocket.active")</label>
+                    @CheckBox(info, "genxml/active", "", "class='w3-input w3-border w3-check'", true)
+                </div>
+                <div class="w3-row w3-padding">
+                    <label class="">@ResourceKey("DNNrocket.emailon")</label>
+                    @CheckBox(info, "genxml/emailon", "", "class='w3-input w3-border w3-check'", true)
+                </div>
+                <div class="w3-row w3-padding">
+                    <label class="">Debug Mode</label>
+                    @CheckBox(info, "genxml/debugmode", "", "class='w3-input w3-border w3-check'", false)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-row w3-margin">
+        <label>@ResourceKey("RCP.securitykey")</label>
+        <div id="secretkey" class="w3-margin-bottom w3-padding w3-light-grey w3-border" style="width:100%;word-wrap:break-word;">@(portalContent.SecurityKey)</div>
+        <i>@ResourceKey("RCP.securitycode", "", "Help")</i>
+        <br />
+        <div class="w3-button" onclick="docopyclipboard($('#secretcode'))"><b>@ResourceKey("RCP.securitycode")</b>&nbsp;<span id="iconsecretcode" class=" action-clipboardicon">@ButtonIcon(ButtonTypes.copy)</span></div>
+        <div id="secretcode" class="w3-padding w3-light-grey w3-border" style="width:100%;word-wrap:break-word;">@(portalContent.RemoteBase64Params())</div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        rpadmin.moveToTop('#systemmodal');
+    });
+
+    function docopyclipboard(element) {
+        rpadmin.CopyTextToClipboard(element);
+    }
+
+
+</script>

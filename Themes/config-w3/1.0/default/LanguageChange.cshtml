@@ -1,0 +1,71 @@
+﻿@inherits RocketDocs.Components.RocketDocsTokens<Simplisity.SimplisityRazor>
+@using RocketDocs.Components;
+@using DNNrocketAPI.Components;
+@using Simplisity;
+@using RazorEngine.Text;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketDocs/App_LocalResources")
+
+@{
+    var enabledlanguages = DNNrocketUtils.GetCultureCodeList();
+    var sessionParams = Model.SessionParamsData;
+}
+
+<div class="w3-row w3-theme w3-padding w3-top " style="z-index:2;width: calc(100% - 280px);">
+    <div class="w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><span class="material-icons" style="max-height:16px;">menu</span></div>
+
+    @foreach (var l in enabledlanguages)
+    {
+        var selectedcolor = "w3-theme";
+        if (sessionParams.CultureCodeEdit == l)
+        {
+            selectedcolor = "w3-theme-l3";
+        }
+        <div class="w3-button w3-padding-small w3-round @(selectedcolor) changeeditlanguage" s-cmd="@Model.GetSetting("scmd")" s-fields='@(Model.GetSetting("sfields"))' language="@(l)" }><img src="/DesktopModules/DNNrocket/API/images/flags/24/@(l).png" class="w3-round" /></div>
+    }
+
+
+    <div class="w3-right">
+        <div class="w3-theme" onclick="topbaractiontools()" style="cursor:pointer;"><span class="material-icons" style="max-height:16px;">more_vert</span></div>
+        <div id="actiontools" class="w3-dropdown-content w3-left w3-bar-block w3-card" style="z-index: 5;right: 0">
+
+            @if (UserUtils.IsAdministrator())
+            {
+                <a class="w3-bar-item w3-button simplisity_click" s-cmd="rocketapi_clearallcache" s-reload="true" s-fields='{"theme":"config-w3","template":"Admin_Systems.cshtml"}' s-return="#simplisity_startpanel">@ResourceKey("DNNrocket.clearallcache")</a>
+            }
+            @if (UserUtils.IsSuperUser())
+            {
+                <a class="w3-bar-item w3-button simplisity_confirmclick" s-reload="true" s-confirm="@ResourceKey("DNNrocket.cleartempdb","","Confirm")" s-cmd="rocketapi_cleartempdb">@ResourceKey("DNNrocket.cleartempdb")</a>
+                <a class="w3-bar-item w3-button simplisity_click" s-reload="true" s-cmd="rocketapi_recycleapppool">@ResourceKey("DNNrocket.recycleapppool")</a>
+            }
+
+            <a class="w3-bar-item w3-button simplisity_click" s-cmd="login_signout" s-reload="true">@ResourceKey("DNNrocket.signout")</a>
+
+        </div>
+    </div>
+    <div class="w3-right w3-margin-right w3-small">@UserUtils.GetCurrentUserEmail()</div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".changeeditlanguage").click(function () {
+            var l = $(this).attr('language');
+            simplisity_setSessionField('culturecodeedit', l);
+            simplisity_callserver(this);
+        });
+    });
+
+    // Tools dropdown menu
+    function topbaractiontools() {
+        var x = document.getElementById("actiontools");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+</script>
+

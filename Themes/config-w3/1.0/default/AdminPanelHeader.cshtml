@@ -1,0 +1,24 @@
+﻿@inherits RocketDocs.Components.RocketDocsTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI.Components;
+@using RocketDocs.Components;
+@using Simplisity;
+@using RazorEngine.Text;
+@using RocketPortal.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketDocs/App_LocalResources")
+
+@{ var portalData = new PortalLimpet(PortalUtils.GetCurrentPortalId()); }
+
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocketModules/RocketDocs/Themes/config-w3/1.0/css/theme.css">
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/API/Themes/config-w3/1.0/css/@(portalData.ColorAdminTheme)">
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/css/w3.css">
+<script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery-3.3.1.min.js"></script>
+<script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/Simplisity/js/simplisity.js"></script>
+<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/Simplisity/js/jquery.fileupload.js"></script>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

@@ -1,0 +1,20 @@
+@inherits RocketDocs.Components.RocketDocsTokens<Simplisity.SimplisityRazor>
+@using RocketDocs.Components;
+@using Simplisity;
+@using DNNrocketAPI.Components;
+@using RocketPortal.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketDocs/App_LocalResources/")
+
+@{
+    var portalCatalog = (PortalContentLimpet)Model.List.First();
+}
+
+<div class="w3-panel w3-pale-red w3-padding w3-border w3-border-red w3-xlarge">
+    <span class="material-icons w3-text-red" style="font-size:32px;">
+        warning
+    </span>
+    <span class="">@ResourceKey("DNNrocket.invalidcatalog")</span>
+    <span class="w3-padding w3-button w3-large w3-theme-action simplisity_click" s-cmd="rocketsystem_edit" s-fields='{"portalid":"@portalCatalog.PortalId","systemkey":"rocketdocs"}'>@ButtonText(ButtonTypes.setup)</span>
+</div>

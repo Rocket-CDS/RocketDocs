@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+
+  <commands>
+
+	<command>
+		<cmd>rocketsystem_edit</cmd>
+		<action>true</action>
+	</command>
+    <command>
+      <cmd>rocketsystem_adminpanel</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketsystem_init</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketsystem_delete</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketsystem_valid</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketsystem_save</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketsystem_login</cmd>
+      <action>false</action>
+    </command>
+
+    
+    <command>
+      <cmd>rocketdocs_adminpanel</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketdocs_adminpanelheader</cmd>
+      <action>true</action>
+    </command>
+    <command>
+      <cmd>rocketdocs_admin</cmd>
+      <action>true</action>
+    </command>    
+
+  </commands>
+  
+</root>

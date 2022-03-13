@@ -1,0 +1,114 @@
+  <genxml>
+    <systemkey>rocketdocs</systemkey>
+    <systemname>RocketDocs</systemname>
+    <databasetable>RocketDocs</databasetable>
+    <logtracking>False</logtracking>
+    <active>True</active>
+    <icon>auto_awesome_motion</icon>
+
+    <groupsdata list="true">
+      <genxml>
+        <textbox>
+          <groupref>content</groupref>
+          <groupicon></groupicon>
+        </textbox>
+      </genxml>
+    </groupsdata>
+
+    <providerdata list="true">
+      
+
+
+    </providerdata>
+
+
+    <interfacedata list="true">
+
+      <genxml>
+        <textbox>
+          <interfacekey>rocketsystem</interfacekey>
+          <namespaceclass>RocketDocs.API.StartConnect</namespaceclass>
+          <providernamespaceclass></providernamespaceclass>
+          <assembly>RocketDocs</assembly>
+          <interfaceicon></interfaceicon>
+          <defaultcommand></defaultcommand>
+          <relpath>/DesktopModules/DNNrocketModules/RocketDocs</relpath>
+        </textbox>
+        <providertype></providertype>
+        <dropdownlist>
+          <group></group>
+        </dropdownlist>
+        <checkbox>
+          <onmenu>false</onmenu>
+          <active>true</active>
+        </checkbox>
+        <radio>
+          <securityrolesadministrators>1</securityrolesadministrators>
+          <securityrolesmanager>1</securityrolesmanager>
+          <securityroleseditor>0</securityroleseditor>
+          <securityrolesclienteditor>0</securityrolesclienteditor>
+          <securityrolesregisteredusers>0</securityrolesregisteredusers>
+          <securityrolessubscribers>0</securityrolessubscribers>
+          <securityrolesall>0</securityrolesall>
+        </radio>
+      </genxml>
+
+      <genxml>        
+        <textbox>
+          <interfacekey>rocketdocs</interfacekey>
+          <namespaceclass>RocketDocs.API.StartConnect</namespaceclass>
+          <assembly>RocketDocs</assembly>
+          <interfaceicon></interfaceicon>
+          <defaultcommand>rocketdocs_get</defaultcommand>
+          <relpath>/DesktopModules/DNNrocketModules/RocketDocs</relpath>
+        </textbox>
+        <providertype></providertype>
+        <dropdownlist>
+          <group></group>
+        </dropdownlist>
+        <checkbox>
+          <onmenu>false</onmenu>
+          <active>true</active>
+        </checkbox>
+        <radio>
+          <securityrolesadministrators>1</securityrolesadministrators>
+          <securityrolesmanager>1</securityrolesmanager>
+          <securityroleseditor>1</securityroleseditor>
+          <securityrolesclienteditor>0</securityrolesclienteditor>
+          <securityrolesregisteredusers>0</securityrolesregisteredusers>
+          <securityrolessubscribers>0</securityrolessubscribers>
+          <securityrolesall>0</securityrolesall>
+        </radio>
+      </genxml>
+
+      <genxml>
+        <textbox>
+          <interfacekey>remote</interfacekey>
+          <namespaceclass>RocketDocs.API.StartConnect</namespaceclass>
+          <assembly>RocketDocs</assembly>
+          <interfaceicon></interfaceicon>
+          <defaultcommand></defaultcommand>
+          <relpath>/DesktopModules/DNNrocketModules/RocketDocs</relpath>
+        </textbox>
+        <providertype></providertype>
+        <dropdownlist>
+          <group></group>
+        </dropdownlist>
+        <checkbox>
+          <onmenu>false</onmenu>
+          <active>true</active>
+        </checkbox>
+        <radio>
+          <securityrolesadministrators>1</securityrolesadministrators>
+          <securityrolesmanager>1</securityrolesmanager>
+          <securityroleseditor>1</securityroleseditor>
+          <securityrolesclienteditor>1</securityrolesclienteditor>
+          <securityrolesregisteredusers>1</securityrolesregisteredusers>
+          <securityrolessubscribers>1</securityrolessubscribers>
+          <securityrolesall>1</securityrolesall>
+        </radio>
+      </genxml>
+
+
+    </interfacedata>
+  </genxml>

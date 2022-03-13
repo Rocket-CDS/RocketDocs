@@ -1,0 +1,76 @@
+@inherits RocketDocs.Components.RocketDocsTokens<Simplisity.SimplisityRazor>
+@using RocketDocs.Components;
+@using Simplisity;
+@using DNNrocketAPI.Components;
+@using RocketPortal.Components;
+
+@{
+    var portalContent = (PortalContentLimpet)Model.List.First();
+    var info = portalContent.Info;
+    var portalData = new PortalLimpet(portalContent.PortalId);
+    var systemData = new SystemLimpet("rocketdocs");
+    var systemAppTheme = new AppThemeSystemLimpet(systemData.SystemKey);
+    DNNrocketUtils.SetCurrentCulture(DNNrocketUtils.GetEditCulture());
+    var enabledlanguages = DNNrocketUtils.GetCultureCodeList();
+
+    var defaultsData = new DefaultsLimpet();
+
+}
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/AppThemes/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/" + systemData.SystemKey + "/App_LocalResources/")
+
+<div id="a-setupbuttons" class="w3-bar" style="display:none;">
+    <span class="w3-button simplisity_click" s-cmd="dashboard_get">@ButtonIcon(ButtonTypes.back)</span>
+    <button class="w3-padding w3-button w3-theme-action simplisity_click" s-return="#setupdata" s-cmd="rocketsystem_save" s-list=".sqlorderbyproduct,.settingsdata,.linklist" s-post="#servicesettings" s-fields='{"systemkey":"@portalContent.SystemKey","portalid":"@portalContent.PortalId"}'>@ButtonText(ButtonTypes.save)</button>
+    @if (portalData.Protocol != "")
+    {
+        <a href="@(portalData.EngineUrlWithProtocol)/@(portalContent.SystemKey)" target="_blank" class="w3-button" style="color: black; text-decoration: none; ">@ButtonText(ButtonTypes.admin)</a>
+    }
+</div>
+
+<div class="w3-row">
+
+    <div class="w3-col m2 w3-padding">
+
+        <ul class="w3-ul">
+            <li onclick="selectsidemenu('sidemenugeneraldata');" class="a-sidemenugeneraldata w3-hover-theme w3-theme-l3 a-sidemenu">@ResourceKey("DNNrocket.general")</li>
+        </ul>
+
+    </div>
+
+    <div id="servicesettings" class="w3-col m10 w3-padding">
+        @RenderTemplate("RocketSystemGeneral.cshtml", systemAppTheme, Model, true)
+    </div>
+
+</div>
+
+
+<div>
+    @if (UserUtils.IsInRole("Administrator"))
+    {
+        <div class="w3-container">
+            <div class="w3-right">
+                @RenderXml(portalContent.Info)
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#a-showsetupbuttons').append($('#a-setupbuttons'));
+        $('#a-portalbuttons').hide();
+        $('#a-setupbuttons').show();
+    });
+
+    function selectsidemenu(selector) {
+        $('.a-panelsidemenu').hide();
+        $('.a-sidemenu').removeClass('w3-theme-l3');
+        $('.a-' + selector).addClass('w3-theme-l3');
+        $('#' + selector).show();
+    }
+
+</script>
