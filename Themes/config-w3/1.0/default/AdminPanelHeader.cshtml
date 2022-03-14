@@ -10,15 +10,35 @@
 
 @{ var portalData = new PortalLimpet(PortalUtils.GetCurrentPortalId()); }
 
-<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocketModules/RocketDocs/Themes/config-w3/1.0/css/theme.css">
-<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/API/Themes/config-w3/1.0/css/@(portalData.ColorAdminTheme)">
+<!-- Load CSS in body, not ideal but is easier to implement and reduces 1 API call. -->
+
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocketModules/RocketCatalog/Themes/config-w3/1.0/css/theme.css">
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/css/jquery.tag-editor.css" charset="utf-8">
+<script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocketModules/RocketCatalog/Themes/config-w3/1.0/js/RC_Admin.js"></script>
+
 <link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/css/w3.css">
+<link rel="stylesheet" href="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/css/rocket.css">
 <script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery-3.3.1.min.js"></script>
 <script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/Simplisity/js/simplisity.js"></script>
+
+<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/Simplisity/js/simplisity.js?v=1"></script>
 <script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/Simplisity/js/jquery.fileupload.js"></script>
+
+<!--
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="//@(portalData.EngineUrl)/DesktopModules/DNNrocketModules/RocketDocs/CKEditor/ckeditor.js"></script>
+-->
+
+<script src="//@(portalData.EngineUrl)/DesktopModules/DNNrocketModules/RocketDocs/CKEditor/ckeditor.js"></script>
+
+<script src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery.selectlistactions.js"></script>
+
+<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery.caret.min.js"></script>
+<script type="text/javascript" src="@(portalData.EngineUrlWithProtocol)/DesktopModules/DNNrocket/js/jquery.tag-editor.min.js"></script>
 
 
 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet" href="@DNNrocketUtils.AppendFileModifiedDate("/DesktopModules/DNNrocket/API/Themes/config-w3/1.0/css/" + portalData.ColorAdminTheme)">

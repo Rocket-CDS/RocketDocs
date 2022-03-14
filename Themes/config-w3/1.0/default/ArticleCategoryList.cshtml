@@ -21,18 +21,13 @@
 
 <div id="datasection" class="">
 
-    <div id="datalist" class="w3-row w3-margin-top ">
+    <div id="datalist" class="w3-row ">
         @{
             lp1 = 0;
             var catList = articleData.GetCategories();
         }
 
-        <table id="categorylistdata" class="w3-table w3-bordered">
-            <thead>
-                <tr>
-                    <th>@ResourceKey("RE.name")</th>
-                </tr>
-            </thead>
+        <table id="categorylistdata" class="w3-table">
             @foreach (var categoryData in catList)
             {
                 lp1 += 1;
@@ -61,7 +56,6 @@
         </table>
 
     </div>
-
 </div>
 
 @RenderTemplate("ArticleCategorySelect.cshtml", appThemeSystem, Model, true)
@@ -71,10 +65,12 @@
     $(document).ready(function () {
         $(':checkbox').attr('class', 'w3-check');
         $("#categorylistdata").disableSelection();
-    });
 
-    function languageChange() {
-        location.reload();
-    }
+        setTimeout(() => {
+            if ($('.ck-content').height() < 400) {
+                $('.ck-content').height(400);
+            }
+        }, 200); 
+    });
 
 </script>
