@@ -1,0 +1,160 @@
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI.Components;
+@using RocketCatalog.Components;
+@using Simplisity;
+@using RazorEngine.Text;
+@using Rocket.AppThemes.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketContent/App_LocalResources/")
+
+@{
+    var sessionParams = Model.SessionParamsData;
+    var appThemeList = (AppThemeDataList)Model.List.First();
+    var moduleRef = Model.SessionParamsData.Get("moduleref");
+    var remoteModule = (RemoteModule)Model.GetDataObject("remotemodule");
+    var appThemeData = (AppThemeLimpet)Model.GetDataObject("apptheme");
+    var info = new SimplisityInfo(remoteModule.Record);
+    var orgData = new OrganisationLimpet();
+
+}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 40px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        height: 40px;
+        line-height: 40px;
+    }
+</style>
+
+
+<div id="a-selectapptheme" class="w3-container w3-margin w3-padding">
+
+    <div class="w3-quarter w3-hide-small">&nbsp;</div>
+
+    <div class="w3-half">
+
+
+        <div class="w3-row w3-padding">
+            <div class="w3-large">ModuleRef</div>
+            <div class="w3-light-grey w3-border w3-input">@moduleRef</div>
+        </div>
+
+        <div class="w3-row w3-padding">
+            <div class="w3-large">@ResourceKey("RC.name")</div>
+            @TextBox(new SimplisityInfo(remoteModule.Record), "genxml/remote/modulename", " class='w3-input w3-border ' ", "")
+        </div>
+
+        <div class="w3-row w3-padding">
+            <div class="w3-large">@ResourceKey("RC.appthemeorg")</div>
+            @DropDownList(new SimplisityInfo(remoteModule.Record), "genxml/remote/org", orgData.ActiveList(), " class='w3-input w3-border'")
+        </div>
+
+        <div class="w3-row">
+            <div class="w3-col m10 w3-padding">
+                <div class="w3-large">@ResourceKey("RC.viewapptheme")</div>
+                <select id="appthemeview" s-xpath="genxml/remote/appthemeview" s-update="save" class="w3-input " style="width:100%;">
+                    <option value="" versionfolder=""></option>
+                    @foreach (var appTheme in appThemeList.List)
+                    {
+                        var selectedvalue2 = "";
+                        if (remoteModule.AppThemeViewFolder == appTheme.AppThemeFolder)
+                        {
+                            selectedvalue2 = "selected";
+                        }
+                        <option value="@appTheme.AppThemeFolder" @selectedvalue2>@appTheme.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="w3-col m2 w3-padding">
+                <div class="w3-large">@ResourceKey("DNNrocket.version")</div>
+                <div id="appthemeviewversiondisplay" class="w3-input w3-border w3-light-grey simplisity_click" s-before="activateVersionAction" s-after="popupversionselect" s-cmd='remote_getappthemeversions' s-post='#a-selectapptheme' s-return='#versionselectlist' s-fields='{"moduleref":"@(moduleRef)","systemkey":"rocketcatalog","ctrl":"appthemeviewversion"}'>@info.GetXmlProperty("genxml/remote/appthemeviewversion")&nbsp;</div>
+                @HiddenField(info, "genxml/remote/appthemeviewversion")
+            </div>
+        </div>
+
+
+        <div class="w3-row  w3-padding">
+            @{
+                var dataDictionary = new Dictionary<string, string>();
+                dataDictionary.Add("remote_publicview", "view");
+                dataDictionary.Add("remote_publicmenu", "menu");
+            }
+            <div class="w3-large">Cmd</div>
+            @DropDownList(info, "genxml/select/cmd", dataDictionary, " name='cmd' class='w3-input w3-border' ", "remote_publiclist")
+        </div>
+
+        @if (appThemeData != null)
+        {
+            <div class="w3-row">
+                @RenderTemplate("RemoteSettings.cshtml", appThemeData, Model, true)
+            </div>
+        }
+
+    </div>
+
+    <div class="w3-quarter w3-hide-small">&nbsp;</div>
+
+</div>
+
+    <div class="w3-row w3-padding w3-center">
+        <div class="w3-button w3-green savebutton simplisity_click" s-cmd="remote_settingssave" s-reload="true" s-post="#a-selectapptheme" s-fields='{"moduleref":"@(moduleRef)"}'>@ButtonText(ButtonTypes.save)</div>
+    </div>
+
+    <div id="versionselect" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:240px;">
+            <div style="height:40px;">
+                <span onclick="document.getElementById('versionselect').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            </div>
+            <div id="versionselectlist">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#appthemeview').select2();
+            activateVersionAction();
+            $('#appthemeview').on('change.select2', function (e) {
+                $('#appthemeviewversion').val('');
+                $('#appthemeviewversiondisplay').html('&nbsp;');
+                $('#appthemeviewversiondisplay').trigger('click');
+            });
+
+            $('#org').off("change");
+            $('#org').change(function () {
+                simplisity_setSessionField("org", $(this).val());
+                $('.savebutton').trigger('click');
+                return false;
+            });
+
+        });
+
+        function activateVersionAction() {
+            if ($('#appthemeview').val() == "") {
+                $('#appthemeviewversiondisplay').attr('s-stop', 'stop');
+            } else {
+                $('#appthemeviewversiondisplay').removeAttr("s-stop");
+            }
+        }
+
+        function popupversionselect() {
+            $('#versionselect').show();
+        }
+
+    </script>
+
+

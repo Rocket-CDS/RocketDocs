@@ -1,0 +1,54 @@
+﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var propertyDataList = (PropertyLimpetList)Model.List.First();
+    var propertyList = propertyDataList.GetPropertyList();
+    var systemData = new SystemLimpet("rocketdocs");
+    var appThemeSystem = new AppThemeSystemLimpet(systemData.SystemKey);
+    var catalogSettings = (CatalogSettingsLimpet)Model.GetDataObject("catalogsettings");
+}
+
+@RenderLanguageSelector("propertyadmin_editlist", "", appThemeSystem, Model)
+
+
+<div class='w3-animate-opacity'>
+
+    @RenderTemplate("PropertySearch.cshtml", appThemeSystem, Model, true)
+
+    <div id="datalistsection" class="w3-padding">
+
+        <table class="w3-table w3-bordered w3-hoverable">
+            <thead>
+                <tr>
+                    <th>@ResourceKey("RE.name")</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (PropertyLimpet propertyData in propertyList)
+            {
+                <tr class=" simplisity_click" s-cmd="propertyadmin_edit" s-fields='{"propertyid":"@propertyData.PropertyId","track":"true"}' style="cursor:pointer;">
+                    <td><div class="w3-tiny">@propertyData.Ref</div><b>@propertyData.Name</b></td>
+                    <td>
+                        @HtmlOf(propertyData.GroupTagHtml)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        @RenderTemplate("PropertyPaging.cshtml", appThemeSystem, Model, true)
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

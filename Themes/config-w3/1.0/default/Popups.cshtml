@@ -1,0 +1,61 @@
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI.Components;
+@using Simplisity;
+@using RocketCatalog.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/Images/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+
+<div id="messagepopup" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity" style="width:60%;">
+        <header class="w3-container w3-theme-d4" style="height:38px;">
+            <div class="w3-button w3-display-topright" onclick="$('#messagepopup').hide();" s-fields=''>
+                &times;
+            </div>
+        </header>
+        <div id="messagepopuptext" class="w3-container w3-padding w3-light-grey">
+            <img id="messagepopupavatar" src="" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+            <h2 id="messagepopupheading"></h2>
+            <p id="messagepopuphelp"></p>
+        </div>
+    </div>
+</div>
+
+
+<div id="articleeditmodal" class="w3-modal " style="">
+    <div class="w3-modal-content w3-animate-opacity" style="width:92%;">
+        <header class="w3-container w3-theme-d4" style="height:38px;">
+            <div class="w3-button w3-display-topright" onclick="$('#articleeditmodal').hide();simplisity_callserver($('.dosearch'));">
+                &times;
+            </div>
+        </header>
+        <div id="articleeditcontainer" class="w3-container articleeditpopup"></div>
+    </div>
+</div>
+
+
+<div id="articlemodal" class="w3-modal ">
+    <div class="w3-modal-content w3-animate-opacity" style="width:95%;">
+        <header class="w3-container w3-theme-d4" style="height:38px;">
+            <div class="w3-button w3-display-topright" onclick="$('#articlemodal').hide();simplisity_callserver($('.dosearch'));">
+                &times;
+            </div>
+        </header>
+        <div id="articlecontainer" class="w3-container articlepopup"></div>
+    </div>
+</div>
+
+<div id="completedmodelmsgreturn" style="display:none;"></div>
+
+<div id="loginformreturn"></div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+
+

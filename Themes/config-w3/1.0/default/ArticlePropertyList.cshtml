@@ -1,0 +1,68 @@
+﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI;
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var articleData = (ArticleLimpet)Model.List.First();
+    var lp1 = 0;
+    var portalCatalog = new PortalCatalogLimpet(articleData.PortalId, DNNrocketUtils.GetEditCulture());
+    var propertyDataList = new PropertyLimpetList(articleData.PortalId, Model.SessionParamsData, DNNrocketUtils.GetEditCulture());
+    var appThemeSystem = new AppThemeSystemLimpet(portalCatalog.SystemKey);
+}
+
+<div class="w3-bar">
+    <div class="w3-button w3-bar-item w3-theme-action" onclick="$('#propertyselect').show();">@ButtonIcon(ButtonTypes.add)</div>
+</div>
+
+<div id="datasection" class="">
+
+    <div id="datalist" class="w3-row w3-margin-top ">
+        @{
+            lp1 = 0;
+            var propList = articleData.GetProperties();
+        }
+
+        <table id="propertylistdata" class="w3-table w3-bordered">
+            <thead>
+                <tr>
+                    <th>@ResourceKey("RE.name")</th>
+                </tr>
+            </thead>
+            @foreach (var propertyData in propList)
+            {
+                lp1 += 1;
+                <tr>
+                    <td>
+                        <div class="w3-bar">
+                            <div class="w3-bar-item w3-button w3-left simplisity_click" s-cmd="propertyadmin_edit" s-fields='{"propertyid":"@propertyData.PropertyId"}'>
+                                @ButtonIcon(ButtonTypes.edit)
+                            </div>
+                            <div class="w3-bar-item">
+                                @propertyData.Name
+                            </div>
+                            <div class="w3-bar-item w3-button w3-right simplisity_click " s-return=".a-articlepropertylist" s-cmd="articleadmin_removeproperty" s-fields='{"articleid":"@(articleData.ArticleId)","propertyid":"@propertyData.PropertyId"}'>
+                                @ButtonIcon(ButtonTypes.remove)
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+
+</div>
+
+@RenderTemplate("ArticlePropertySelect.cshtml", appThemeSystem, Model, true)
+
+
+<script>
+    $(document).ready(function () {
+        $("#propertylistdata").disableSelection();
+    });
+</script>

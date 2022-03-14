@@ -12,7 +12,7 @@
     var portalCatalog = (PortalCatalogLimpet)Model.List.First();
     var info = portalCatalog.Info;
     var portalData = new PortalLimpet(portalCatalog.PortalId);
-    var systemData = new SystemLimpet("rocketcatalog");
+    var systemData = new SystemLimpet("rocketdocs");
     var systemAppTheme = new AppThemeSystemLimpet(systemData.SystemKey);
     DNNrocketUtils.SetCurrentCulture(DNNrocketUtils.GetEditCulture());
     var enabledlanguages = DNNrocketUtils.GetCultureCodeList();

@@ -1,0 +1,90 @@
+﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI;
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var articleData = (ArticleLimpet)Model.List.First();
+    var propertyDataList = new PropertyLimpetList(articleData.PortalId, Model.SessionParamsData, articleData.CultureCode);
+}
+
+<style>
+    .w3-ul-alt {
+        list-style-type: none;
+        padding: 0;
+        margin: 0
+    }
+
+        .w3-ul-alt li {
+            padding: 4px 8px;
+            border-bottom: none;
+        }
+</style>
+
+
+<div id="propertyselect" class="w3-modal"  style="z-index: 1500">
+    <div class="w3-modal-content" style="width:50%;">
+
+        <header class="" style="height: 38.5px;">
+            <span onclick="$('#propertyselect').hide();" class="w3-button w3-display-topright">&times;</span>
+        </header>
+
+        <div class="w3-row w3-padding">
+            <input class="w3-col m12 w3-input w3-border w3-light-grey w3-padding" autocomplete="off" type="text" placeholder="@ResourceKey("DNNrocket.search")..." id="searchtextproperty" onkeyup="searchFunctionProperty()">
+        </div>
+
+        <div class="w3-margin-top" style="">
+            <div id="datalistproperty" class="w3-container w3-padding">
+
+                @{
+                    var lp1 = 0;
+                }
+
+                <ul id="propertylistdata" class="w3-ul  w3-hoverable " style="border-bottom: none;">
+
+                    @foreach (var propData in propertyDataList.GetPropertyList())
+                    {
+                        lp1 += 1;
+                        <li class="propertylist w3-row simplisity_click" s-cmd="articleadmin_assignproperty" s-return=".a-articlepropertylist" s-fields='{"articleid":"@(articleData.ArticleId)","propertyid":"@(propData.PropertyId)"}'>
+                            <div class="w3-row" style="">
+                                <div class="w3-col m12 ">
+                                    <b>@propData.Name</b>&nbsp;<span class="w3-tiny">@(ResourceKey("RC.ref").ToString()):&nbsp;@propData.Ref</span>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(':checkbox').attr('class', 'w3-check');
+        $("#propertylistdata").disableSelection();
+    });
+
+    function searchFunctionProperty() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("searchtextproperty");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("datalistproperty");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            txtValue = li[i].textContent || li[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+</script>

@@ -1,4 +1,50 @@
-﻿body, h1, h2, h3, h4, h5, h6 {
+﻿
+.tag-editor {
+    list-style-type: none;
+    padding: 0 5px 0 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #eee;
+    cursor: text;
+    font: normal 16px sans-serif;
+    color: #555;
+    background: #fafafa;
+    background-color: #ffffe6 !important;
+    border: 1px solid #ccc !important;
+    padding: 8px 16px !important;
+}
+.tag-editor .tag-editor-tag {
+    color: #000;
+    background: #87ceeb;
+    border-radius: 2px;
+}
+.tag-editor .tag-editor-delete {
+    background: #87ceeb;
+}
+
+
+
+/* Style the list */
+ul.breadcrumb {
+    padding: 3px 4px;
+    list-style: none;
+    background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li + li:before {
+    padding: 8px;
+    color: black;
+    content: ">";
+}
+
+body, h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
@@ -6,9 +52,9 @@
     vertical-align: middle;
 }
 
-
 @media (max-width:992px) {
     .w3-top {
         width: 100% !important;
     }
 }
+

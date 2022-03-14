@@ -1,0 +1,248 @@
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var info = new SimplisityInfo();
+    var categoryData = (CategoryLimpet)Model.List.First();
+    if (categoryData.Info != null)
+    {
+        info = categoryData.Info;
+    }
+    var portalCatalog = new PortalCatalogLimpet(categoryData.PortalId, DNNrocketUtils.GetEditCulture());
+
+    var parentCategoryData = new CategoryLimpet(categoryData.PortalId, categoryData.ParentItemId, categoryData.CultureCode);
+    if (!parentCategoryData.Exists)
+    {
+        parentCategoryData.Info.SetXmlProperty("genxml/lang/genxml/textbox/name", ResourceKey("RE.home").ToString());
+    }
+    var systemData = new SystemLimpet("rocketdocs");
+    var appThemeSystem = new AppThemeSystemLimpet(systemData.SystemKey);
+    var sessionParams = Model.SessionParamsData;
+}
+
+
+@RenderLanguageSelector("categoryadmin_edit", "{\"categoryid\":\"" + categoryData.CategoryId + "\"}", appThemeSystem, Model)
+
+<div class='w3-animate-opacity'>
+
+    <div class="w3-row w3-padding">
+        <button class="w3-button simplisity_click" s-cmd="categoryadmin_editlist" s-fields='{"categoryid":"@(parentCategoryData.CategoryId)"}'>@ButtonIcon(ButtonTypes.back)</button>
+        <button class="w3-button w3-theme-action simplisity_click savecategorybutton langchangesave" s-before="saveRichText" s-list=".imagecategorylist,.articlelist" s-cmd="categoryadmin_save" s-post="#datacategorysection" s-fields='{"categoryid":"@info.ItemID"}'>@ButtonText(ButtonTypes.save)</button>
+        <button class="w3-button w3-right w3-red simplisity_confirmclick" s-confirm="@ResourceKey("DNNrocket.delete","","confirm")" s-cmd="categoryadmin_delete" s-fields='{"categoryid":"@info.ItemID"}' title='@ResourceKey("DNNrocket.delete")'>@ButtonText(ButtonTypes.delete)</button>
+    </div>
+
+
+    <div class="w3-row">
+        <div onclick="openCategoryTab('category');" class="w3-quarter  w3-hover-light-grey w3-center">
+            <div class="categorybutton cattablink w3-bottombar w3-border-black w3-large w3-padding">
+                <span class="material-icons">
+                    library_books
+                </span>
+                @ResourceKey("RC.category")
+            </div>
+        </div>
+        <div onclick="openCategoryTab('articles');" class="w3-quarter  w3-hover-light-grey w3-center">
+            <div class="articlesbutton cattablink  w3-large w3-padding">
+                <span class="material-icons">
+                    qr_code
+                </span>
+                @ResourceKey("RC.articles")
+            </div>
+        </div>
+    </div>
+
+
+    <div id="datacategorysection" class="">
+        <div id="category" class="categorytab">
+            <!-- The Detail-->
+            <div id="detailDisplay" class="w3-container">
+                <div class="w3-col m2 w3-margin-right w3-margin-top w3-display-container" title="@categoryData.Name" style="width:172px;">
+                    <span onclick="$('#categoryimageselect').show();" class="w3-button w3-display-topright">@ButtonIcon(ButtonTypes.photo)</span>
+                    @if (categoryData.LogoRelPath != "")
+                    {
+                        <img src="@ThumbnailImageUrl(categoryData.LogoRelPath, 172, 172)" style="height:172px;width:172px;" class="w3-round" />
+                    }
+                    else
+                    {
+                        <img src="@ThumbnailImageUrl("/DesktopModules/DNNrocket/api/images/noimage2.png", 72, 72)" style="height:172px;width:172px;" class="w3-round" />
+                    }
+                </div>
+                <div class="w3-col m10">
+
+                    <div class='w3-row'>
+                        <div class='w3-col m2 w3-padding'>
+                            <label>@ResourceKey("RC.ref")</label>
+                            @TextBox(info, "genxml/textbox/ref", " class='w3-input w3-border' autocomplete='off' ", "", false, 0)
+                        </div>
+                        <div class='w3-col m5 w3-padding'>
+                            <label>@ResourceKey("RC.name")</label>		&nbsp;@EditFlag(sessionParams)
+                            @TextBox(info, "genxml/lang/genxml/textbox/name", " class='w3-input w3-border' autocomplete='off' ", "", true, 0)
+                        </div>
+                        <div class='w3-col m5 w3-padding'>
+                            <label>@ResourceKey("RC.parentcategory")&nbsp;</label>
+                            <div class="w3-row">
+                                <span class="w3-col m9 w3-border w3-light-grey w3-padding" style="height:40px;">@parentCategoryData.Name</span>
+                                <span class="w3-col m3 w3-button w3-theme parentcategoryselect" onclick="$('#categoryselect').show();" style="width:64px;">@ButtonIcon(ButtonTypes.tree)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='w3-row w3-padding'>
+                        <label>@ResourceKey("RC.summary")</label>&nbsp;@EditFlag(sessionParams)
+                        @TextArea(info, "genxml/lang/genxml/textbox/summary", " class='w3-input w3-border' autocomplete='off'  rows='4' ", "", true, 0)
+                    </div>
+                    <div class='w3-row w3-padding'>
+                        <label>@ResourceKey("RC.keywords")</label>&nbsp;@EditFlag(sessionParams)
+                        @TextArea(info, "genxml/lang/genxml/textbox/categorykeywords", "class='w3-input w3-border' rows='4'", "", true, 0)
+                    </div>
+                    <div class='w3-row'>
+                        <div class="w3-quarter w3-padding">
+                            @CheckBox(info,"genxml/checkbox/hidden", "&nbsp;" + ResourceKey("RC.hidden"), " class='w3-check' ")
+                        </div>
+                        <div class="w3-quarter w3-padding">
+                            @CheckBox(info, "genxml/lang/genxml/checkbox/hidden", "&nbsp;" + ResourceKey("RC.hidden") + "&nbsp;" + EditFlag(sessionParams), " class='w3-check' ")
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="imgs" class='w3-row sectionname' style="display:none">
+                @RenderTemplate("CategoryImages.cshtml", appThemeSystem, Model, true)
+            </div>
+
+            <div class="w3-row">
+                @RenderTemplate("categoryImageSelect.cshtml", appThemeSystem, Model, true)
+            </div>
+
+            @if (UserUtils.IsInRole("Administrator"))
+            {
+                <div class="w3-container w3-margin-top">
+                    <div class="w3-right">
+                        @RenderXml(info)
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div id="articles" class="categorytab" style="display:none">
+            <div id="datalist2" class="w3-row w3-padding  w3-margin-top ">
+                @{
+                    var articleDataList = new ArticleLimpetList(categoryData.CategoryId, portalCatalog, categoryData.CultureCode, true);
+                    var lp1 = 0;
+                }
+
+                <ul id="articlelistdata" class="w3-ul w3-hoverable" style="border-bottom: none;">
+
+                    @foreach (ArticleLimpet articleData in articleDataList.GetArticleList())
+                    {
+                        lp1 += 1;
+                        <li class="articlelist w3-row" style="cursor: grab;">
+                            <!-- Create hidden fields to pass back the values, the CategoryLimpet is expecting a postInfo data for the save.  s-fields only post to the paramInfo -->
+                            <input id="categoryguidkey_@(lp1)" type="hidden" s-type="save" s-xpath="genxml/hidden/categoryguidkey" value="@(categoryData.GUIDKey)" />
+                            <input id="articleid_@(lp1)" type="hidden" s-type="save" s-xpath="genxml/hidden/articleid" value="@(articleData.ArticleId)" />
+                            <div class="w3-rest w3-card " style="">
+                                <div class="w3-bar w3-card " style="">
+                                    <div class="w3-button w3-bar-item simplisity_click" s-cmd="articleadmin_editarticle" s-fields='{"articleid":"@articleData.ArticleId","categoryguidkey":"@categoryData.GUIDKey","track":"false"}'>
+                                        @ButtonIcon(ButtonTypes.edit)
+                                    </div>
+                                    <div class="w3-bar-item">
+                                        @articleData.Name
+                                    </div>
+                                    <div class="w3-bar-item w3-button w3-right simplisity_click " s-cmd="categoryadmin_removearticle" s-fields='{"articleid":"@(articleData.ArticleId)","categoryid":"@(categoryData.CategoryId)"}'>
+                                        @ButtonIcon(ButtonTypes.remove)
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div>
+        <i>ID: </i> @info.ItemID <i> GuidKey:</i> @info.GUIDKey
+    </div>
+
+</div>
+
+
+
+@RenderTemplate("CategorySelect.cshtml", appThemeSystem, Model, true)
+
+<script>
+    $(document).ready(function () {
+
+        openCategoryTab('category');
+
+        $('#categorykeywords').tagEditor({
+            delimiter: ', ', /* space and comma */
+            placeholder: '@ResourceKey("RE.keywords") ...',
+            removeDuplicates: false,
+        });
+
+        $("#articlelistdata").sortable();
+        $("#articlelistdata").disableSelection();
+
+    });
+
+    function searchFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("searchtext");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("datalist");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            txtValue = li[i].textContent || li[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function languageChange() {
+        $('.langchangesave').trigger("click");
+    }
+
+    function openCategoryTab(categorytab) {
+
+        if ((typeof categorytab === 'undefined') || categorytab === '') {
+            categorytab = 'category';
+        }
+
+        var i, x, tablinks;
+        x = document.getElementsByClassName("categorytab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("cattablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-bottombar", "");
+            tablinks[i].className = tablinks[i].className.replace(" w3-border-black", "");
+        }
+        document.getElementById(categorytab).style.display = "block";
+        $('.' + categorytab + 'button').addClass('w3-bottombar');
+        $('.' + categorytab + 'button').addClass('w3-border-black');
+    }
+    function saveRichText() {
+        $('#datacategorysection').append($('#richtext')); // we need to move the richtext to the save data area.
+        categoryrichtextSave(); // Copy editor data to the textarea
+    }
+
+</script>
+
+
+

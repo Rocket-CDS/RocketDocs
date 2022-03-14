@@ -1,0 +1,88 @@
+﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI;
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources/")
+
+@{
+    var articleDataList = (ArticleLimpetList)Model.List.First();
+    var sessionParams = Model.SessionParamsData;
+}
+
+
+<div class="w3-bar searchdata w3-padding">
+
+    @HiddenField(new SimplisityInfo(), "genxml/hidden/page", " class='simplisity_sessionfield' s-update='ignore'", "1")
+
+    @if (articleDataList.PortalCatalog.ArticleCount < articleDataList.PortalCatalog.ArticleLimit)
+    {
+        <div class="w3-bar-item w3-button w3-theme-action simplisity_click" s-cmd="articleadmin_addarticle" s-fields='{"articleid":"-1","sitekey":"@(articleDataList.PortalCatalog.SiteKey)"}'>@ButtonText(ButtonTypes.add)</div>
+    }
+
+    @if (articleDataList.PortalCatalog.ArticleOrderBy)
+    {
+        var orderbyDictionary = new Dictionary<string, string>();
+        foreach (var orderbyInfo in articleDataList.PortalCatalog.GetProductOrderByList())
+        {
+            orderbyDictionary.Add(orderbyInfo.GetXmlProperty("genxml/key"), ResourceKey("RC." + orderbyInfo.GetXmlProperty("genxml/key")).ToString());
+        }
+        <div class="w3-bar-item w3-right w3-hide-small w3-margin-left">
+            @DropDownList(new SimplisityInfo(), "genxml/hidden/orderbyref", orderbyDictionary, "class='w3-input w3-border w3-light-grey simplisity_sessionfield simplisity_change ' s-sessionfield='#searchtext,#pagesize,#orderbyref,#page' s-cmd='articleadmin_articlesearch' s-post='.searchdata' s-fields='{\"track\":\"true\"}' title='" + @ResourceKey("DNNrocket.pagesize") + "'", "32")
+        </div>
+    }
+
+    <div class="w3-bar-item w3-right w3-hide-small w3-margin-left" style="width: 100px">
+        @DropDownList(new SimplisityInfo(), "genxml/hidden/pagesize", "8,16,32,64,128", "8,16,32,64,128", "class='w3-input w3-border w3-light-grey simplisity_sessionfield simplisity_change ' s-sessionfield='#searchtext,#pagesize,#orderbyref,#page' s-cmd='articleadmin_articlesearch' s-post='.searchdata' s-fields='{\"track\":\"true\"}'  title='" + @ResourceKey("DNNrocket.pagesize") + "'", "32")
+    </div>
+
+    <div class="w3-bar-item w3-right " style=''>
+        <div class="w3-bar">
+            @TextBox(new SimplisityInfo(), "genxml/textbox/searchtext", "class='w3-bar-item w3-input w3-border w3-light-grey simplisity_sessionfield actionentrykey' autocomplete='off' ")
+            <span class="w3-bar-item w3-button w3-theme-d3 clearsearch " style="display:none;height:40px;" s-fields=''>@ButtonText(ButtonTypes.cancelsearch)</span>
+            <span class="w3-bar-item w3-button w3-theme langchangesave simplisity_click dosearch" style="height:40px;" s-sessionfield='#searchtext,#pagesize,#orderbyref,#page' s-cmd="articleadmin_articlesearch" s-post=".searchdata" s-fields='{"track":"true"}'>@ButtonText(ButtonTypes.search)</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.clearsearch ').unbind("click");
+        $('.clearsearch ').click(function () {
+            $('#searchtext').val('');
+            $('.dosearch').trigger('click');
+            return false; // prevent the button click from happening
+        });
+
+        if ($('#searchtext').val() !== '') {
+            $('.dosearch').hide();
+            $('.clearsearch').show();
+        }
+
+
+        $('.actionentrykey').unbind('keypress');
+        $('.actionentrykey').on('keypress', function (e) {
+            if (e.keyCode == 13) {
+                $('.dosearch').trigger('click');
+                return false; // prevent the button click from happening
+            }
+        });
+
+        $('.actionentrykey').focus();
+
+        // move cursor to end of line
+        var tmpStr = $('.actionentrykey').val();
+        $('.actionentrykey').val('');
+        $('.actionentrykey').val(tmpStr);
+
+        //  change color of panel, s we show it has a selection
+        if (tmpStr != '') {
+            $('#searchtext').addClass('w3-pale-yellow');
+        }
+
+    });
+
+</script>

@@ -1,0 +1,160 @@
+﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using Simplisity;
+@using RocketCatalog.Components;
+@using DNNrocketAPI.Components;
+
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketEcommerce/App_LocalResources/")
+
+
+@{
+    var categoryDataList = (CategoryLimpetList)Model.List.First();
+    var lp1 = 0;
+    var previousid = 0;
+    var breadcrumbList = categoryDataList.GetBreadCrumbList();
+    if (breadcrumbList.Count > 1)
+    {
+        previousid = breadcrumbList[breadcrumbList.Count - 2].CategoryId;
+    }
+    var systemData = new SystemLimpet("rocketdocs");
+    var appThemeSystem = new AppThemeSystemLimpet(systemData.SystemKey);
+}
+
+@RenderLanguageSelector("categoryadmin_editlist", "{\"categoryid\":\"" + categoryDataList.SelectedParentId + "\"}", appThemeSystem, Model)
+
+<div class='w3-animate-opacity'>
+
+    <div class="w3-bar  w3-padding">
+        <div class="w3-bar-item w3-button w3-theme-action simplisity_click" s-cmd="categoryadmin_add" s-fields='{"parentid":"@(categoryDataList.SelectedParentId)","categoryid":"-1"}'>@ButtonText(ButtonTypes.add)</div>
+        <div class="w3-bar-item w3-right w3-button" onclick="$('#categorytree').show();">@ButtonIcon(ButtonTypes.tree)</div>
+        <div class="w3-bar-item w3-right w3-button simplisity_click" s-cmd="categoryadmin_editlist">@ButtonIcon(ButtonTypes.refresh)</div>
+
+        <input class="w3-bar-item w3-right w3-input w3-border w3-light-grey w3-padding" autocomplete="off" type="text" placeholder="@ResourceKey("DNNrocket.search")..." id="searchtext" onkeyup="searchFunction()">
+
+    </div>
+
+    <ul class="breadcrumb w3-light-grey w3-margin-top">
+        <li><div class="w3-button simplisity_click" s-cmd="categoryadmin_editlist" s-fields='{"categoryid":"0","track":"true"}'>@ButtonIcon(ButtonTypes.home)</div></li>
+        @{
+            foreach (var c in breadcrumbList)
+            {
+                <li><div class="w3-button simplisity_click" s-cmd="categoryadmin_editlist" s-fields='{"categoryid":"@c.CategoryId","track":"true"}'>@(c.Name)</div></li>
+            }
+        }
+    </ul>
+
+    <div id="datasection" class="">
+
+        <div id="datalist" class="w3-row w3-margin-top ">
+            @{
+                lp1 = 0;
+                var catList = categoryDataList.GetCategoryList(categoryDataList.SelectedParentId);
+            }
+
+            @if (catList.Count > 0)
+            {
+                <ul id="categorylistdata" class="w3-ul-alt " style="border-bottom: none;">
+
+                    @foreach (var categoryData in catList)
+                    {
+                        lp1 += 1;
+
+                        <li class="categorylist w3-row " cid="@(categoryData.CategoryId)" level="@(categoryData.Level)" style="cursor: grab;">
+                            @SortableListIndex(categoryData.Info, lp1)
+                            <div class="w3-rest w3-card" style="">
+                                <div class="w3-bar w3-card " style="">
+                                    <div class="w3-bar-item">
+                                        <div class="w3-button simplisity_click" s-cmd="categoryadmin_edit" s-fields='{"categoryid":"@categoryData.CategoryId"}'>
+                                            @ButtonIcon(ButtonTypes.edit)
+                                        </div>
+                                    </div>
+                                    <div class="w3-bar-item">
+                                        <div class="w3-button simplisity_click" s-cmd="categoryadmin_editlist" s-fields='{"categoryid":"@categoryData.CategoryId"}'>
+                                            @ButtonIcon(ButtonTypes.folder)
+                                        </div>
+                                    </div>
+                                    <div class="w3-bar-item">
+                                        @if (categoryData.LogoRelPath != "")
+                                        {
+                                            <img src="@ThumbnailImageUrl(categoryData.LogoRelPath, 48, 48)" style="height:48px;width:48px;" class="w3-round" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@ThumbnailImageUrl("/DesktopModules/DNNrocket/api/images/noimage2.png", 48, 48)" style="height:48px;width:48px;" class="w3-round" />
+                                        }
+                                    </div>
+                                    <div class="w3-bar-item">
+                                        @categoryData.Name
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="w3-center">
+                    <div class="w3-row w3-padding">
+                            <h2>@ResourceKey("Help.nosubcategories")</h2>
+                    </div>
+                    <p>@ResourceKey("Help.nosubcategories", "", "Msg")</p>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+
+    @RenderTemplate("CategoryTree.cshtml", appThemeSystem, Model, false)
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(':checkbox').attr('class', 'w3-check');
+
+        var startPosition = function (e, ui) {
+            simplisity_setParamField("sourceid", ui.item.attr('cid'));
+        };
+
+        var stopPosition = function (e, ui) {
+            if (typeof ui.item.prev().attr('cid') === 'undefined' || ui.item.prev().attr('cid') === null || ui.item.prev().attr('cid') === '') {
+                simplisity_setParamField("destid", '0');
+            }
+            else {
+                simplisity_setParamField("destid", ui.item.prev().attr('cid'));
+            }
+            $('#simplisity_startpanel').getSimplisity('/Desktopmodules/dnnrocket/api/rocket/action', 'categoryadmin_move', '', '');
+        };
+
+        $("#categorylistdata").sortable({
+            start: startPosition,
+            beforeStop: stopPosition,
+        });
+
+        $("#categorylistdata").disableSelection();
+
+    });
+
+    function searchFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("searchtext");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("datalist");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            txtValue = li[i].textContent || li[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+
+</script>
