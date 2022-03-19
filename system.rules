@@ -251,35 +251,6 @@
       </radio>
     </genxml>
 
-
-    <genxml>
-      <textbox>
-        <interfacekey>propertyadmin</interfacekey>
-        <namespaceclass>RocketDocs.API.StartConnect</namespaceclass>
-        <assembly>RocketDocs</assembly>
-        <interfaceicon>edit_attributes</interfaceicon>
-        <defaultcommand>propertyadmin_editlist</defaultcommand>
-        <relpath>/DesktopModules/DNNrocketModules/RocketDocs</relpath>
-      </textbox>
-      <providertype></providertype>
-      <dropdownlist>
-        <group></group>
-      </dropdownlist>
-      <checkbox>
-        <onmenu>true</onmenu>
-        <active>true</active>
-      </checkbox>
-      <radio>
-        <securityrolesadministrators>1</securityrolesadministrators>
-        <securityrolesmanager>1</securityrolesmanager>
-        <securityroleseditor>1</securityroleseditor>
-        <securityrolesclienteditor>0</securityrolesclienteditor>
-        <securityrolesregisteredusers>0</securityrolesregisteredusers>
-        <securityrolessubscribers>0</securityrolessubscribers>
-        <securityrolesall>0</securityrolesall>
-      </radio>
-    </genxml>
-
     <genxml>
       <textbox>
         <interfacekey>settingsadmin</interfacekey>
