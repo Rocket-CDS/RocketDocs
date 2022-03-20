@@ -17,13 +17,13 @@
     DNNrocketUtils.SetCurrentCulture(DNNrocketUtils.GetEditCulture());
     var enabledlanguages = DNNrocketUtils.GetCultureCodeList();
 
-    var defaultsData = new DefaultsLimpet();
+    var defaultsData = (SecurityLimpet)Model.GetDataObject("securitydata");
 
 }
 
 <div id="a-setupbuttons" class="w3-bar" style="display:none;">
     <span class="w3-button simplisity_click" s-cmd="dashboard_get">@ButtonIcon(ButtonTypes.back)</span>
-    <button class="w3-padding w3-button w3-theme-action savebutton simplisity_click" s-return="#setupdata" s-cmd="portalcatalog_save" s-list=".sqlorderbyproduct,.settingsdata,.linklist" s-post="#servicesettings" s-fields='{"systemkey":"@portalCatalog.SystemKey","portalid":"@portalCatalog.PortalId"}'>@ButtonText(ButtonTypes.save)</button>
+    <button class="w3-padding w3-button w3-theme-action savebutton simplisity_click" s-return="#setupdata" s-cmd="portalcatalog_save" s-list=".sqlorderbyproduct,.settingsdata,.linklist" s-post="#servicesettings" s-fields='{"systemkey":"@systemData.SystemKey","portalid":"@portalCatalog.PortalId"}'>@ButtonText(ButtonTypes.save)</button>
     @if (portalData.Protocol != "")
     {
         <a href="@(portalData.EngineUrlWithProtocol)/@(portalCatalog.SystemKey)" target="_blank" class="w3-button" style="color: black; text-decoration: none; ">@ButtonText(ButtonTypes.admin)</a>
