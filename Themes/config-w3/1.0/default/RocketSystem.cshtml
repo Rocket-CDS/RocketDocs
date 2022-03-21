@@ -26,7 +26,7 @@
     <button class="w3-padding w3-button w3-theme-action savebutton simplisity_click" s-return="#setupdata" s-cmd="portalcatalog_save" s-list=".sqlorderbyproduct,.settingsdata,.linklist" s-post="#servicesettings" s-fields='{"systemkey":"@systemData.SystemKey","portalid":"@portalCatalog.PortalId"}'>@ButtonText(ButtonTypes.save)</button>
     @if (portalData.Protocol != "")
     {
-        <a href="@(portalData.EngineUrlWithProtocol)/@(portalCatalog.SystemKey)" target="_blank" class="w3-button" style="color: black; text-decoration: none; ">@ButtonText(ButtonTypes.admin)</a>
+        <a href="@(portalData.EngineUrlWithProtocol)/@(systemData.SystemKey)" target="_blank" class="w3-button" style="color: black; text-decoration: none; ">@ButtonText(ButtonTypes.admin)</a>
     }
 </div>
 
@@ -38,7 +38,6 @@
             <li onclick="selectsidemenu('sidemenugeneraldata');" class="a-sidemenugeneraldata w3-hover-theme w3-theme-l3 a-sidemenu">@ResourceKey("RCP.general")</li>
             <li onclick="selectsidemenu('sidemenuconfigdata');" class="a-sidemenuconfigdata w3-hover-theme a-sidemenu">@ResourceKey("RCP.config")</li>
             <li onclick="selectsidemenu('sidemenupageandlinksdata');" class="a-sidemenupageandlinksdata w3-hover-theme a-sidemenu">@ResourceKey("RCP.pageandlinks")</li>
-            <li onclick="selectsidemenu('sidemenusettingsdata');" class="a-sidemenusettingsdata w3-hover-theme a-sidemenu">@ResourceKey("RCP.generalsettings")</li>
             <li onclick="selectsidemenu('sidemenutoolsdata');" class="a-sidemenutoolsdata w3-hover-theme a-sidemenu">@ResourceKey("RCP.tools")</li>
         </ul>
 
@@ -48,7 +47,6 @@
         @RenderTemplate("RocketSystemGeneral.cshtml", systemAppTheme, Model, true)
         @RenderTemplate("RocketSystemConfig.cshtml", systemAppTheme, Model, true)
         @RenderTemplate("RocketSystemPageLinks.cshtml", systemAppTheme, Model, true)
-        @RenderTemplate("RocketSystemSettings.cshtml", systemAppTheme, Model, true)
         @RenderTemplate("RocketSystemTools.cshtml", systemAppTheme, Model, true)
     </div>
 
