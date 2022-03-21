@@ -12,7 +12,7 @@
     var systemGloablData = new SystemGlobalData();
     var portalData = new PortalLimpet(PortalUtils.GetPortalId());
     var portalCat = new PortalCatalogLimpet(PortalUtils.GetPortalId(), DNNrocketUtils.GetCurrentCulture());
-    var systemData = new SystemLimpet("rocketdocs");
+    var systemData = (SystemLimpet)Model.GetDataObject("systemdata");
     var sessionParams = Model.SessionParamsData;
     var enabledlanguages = DNNrocketUtils.GetCultureCodeList();
 }
