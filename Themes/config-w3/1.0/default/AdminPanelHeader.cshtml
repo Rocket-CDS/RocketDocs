@@ -1,14 +1,16 @@
 ﻿@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
 @using DNNrocketAPI.Components;
-@using RocketDocs.Components;
+@using RocketCatalog.Components;
 @using Simplisity;
 @using RazorEngine.Text;
 @using RocketPortal.Components;
 
 @AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
-@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketDocs/App_LocalResources")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources")
 
-@{ var portalData = new PortalLimpet(PortalUtils.GetCurrentPortalId()); }
+@{
+    var portalData = new PortalLimpet(PortalUtils.GetCurrentPortalId());
+}
 
 <!-- Load CSS in body, not ideal but is easier to implement and reduces 1 API call. -->
 
