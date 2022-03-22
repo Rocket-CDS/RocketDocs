@@ -1,0 +1,32 @@
+@using DotNetNuke.Web.DDRMenu;
+@using System.Dynamic;
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage
+@{ var root = Model.Source.root; }
+
+@helper RenderNodes(IList<MenuNode> nodes) {
+	if (nodes.Count > 0) {
+
+<div class="w3-bar w3-black w3-text-white">
+	@foreach (var node in nodes) {
+
+		if (node.Enabled)
+		{
+			if (node.Selected) 
+			{
+			<a href="@node.Url" class="w3-bar-item w3-button w3-grey w3-text-white"  style="text-decoration:none;">@node.Text</a>
+			}
+			else
+			{
+			<a href="@node.Url" class="w3-bar-item w3-button w3-text-white"  style="text-decoration:none;">@node.Text</a>
+			}
+		} 
+		else 
+		{
+			<div class="w3-bar-item">@node.Text</div>
+		}
+	}
+</div>
+
+	}
+}
+@RenderNodes(root.Children)
