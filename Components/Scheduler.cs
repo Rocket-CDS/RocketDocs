@@ -20,7 +20,7 @@ namespace RocketDocs.Components
             var portalList = PortalUtils.GetPortals();
             foreach (var portalId in portalList)
             {
-                var portalCatalog = new PortalCatalogLimpet(portalId, DNNrocketUtils.GetCurrentCulture());
+                var portalCatalog = new PortalCatalogLimpet(portalId, DNNrocketUtils.GetCurrentCulture(), "rocketdocs");
 
                 if (portalCatalog.Active && (portalCatalog.SchedulerRunHours == 0 || (portalCatalog.LastSchedulerTime < DateTime.Now.AddHours(portalCatalog.SchedulerRunHours * -1))))
                 {
@@ -30,7 +30,7 @@ namespace RocketDocs.Components
                 }
                 else
                 {
-                    if (portalCatalog.DebugMode) LogUtils.LogSystem("RocketCatalog Scheduler not run, LastSchedulerTime: " + portalCatalog.LastSchedulerTime.ToString("O") + " CurrentTime: " + DateTime.Now.ToString("O"));
+                    if (portalCatalog.DebugMode) LogUtils.LogSystem("RocketDocs Scheduler not run, LastSchedulerTime: " + portalCatalog.LastSchedulerTime.ToString("O") + " CurrentTime: " + DateTime.Now.ToString("O"));
                 }
             }
         }
