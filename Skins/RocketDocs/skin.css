@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+/ DNN Buttons /
+.LoginPanel a.dnnPrimaryAction, .LoginPanel a.dnnSecondaryAction, .dnnRegistrationForm a.dnnPrimaryAction, .dnnRegistrationForm a.dnnSecondaryAction {
+    border: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    font-weight: normal;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    margin: 10px 0;
+}
+
+    .LoginPanel a.dnnPrimaryAction:link, .LoginPanel a.dnnPrimaryAction:visited, .dnnRegistrationForm a.dnnPrimaryAction:link, .dnnRegistrationForm a.dnnPrimaryAction:visited {
+        background: #333;
+        display: inline-block;
+        font-size: 16px;
+        color: white;
+        text-decoration: none;
+        padding: 4px 14px;
+        line-height: 28px;
+    }
+
+    .LoginPanel a.dnnPrimaryAction:active, .LoginPanel a.dnnPrimaryAction:hover, .dnnRegistrationForm a.dnnPrimaryAction:active, .dnnRegistrationForm a.dnnPrimaryAction:hover {
+        background: #050533;
+        color: white;
+    }
+
+    .LoginPanel a.dnnSecondaryAction:link, .LoginPanel a.dnnSecondaryAction:visited, .dnnRegistrationForm a.dnnSecondaryAction:link, .dnnRegistrationForm a.dnnSecondaryAction:visited {
+        background: #aaa;
+        display: inline-block;
+        font-size: 16px;
+        color: white;
+        text-decoration: none;
+        padding: 4px 14px;
+        line-height: 28px;
+    }
+
+    .LoginPanel a.dnnSecondaryAction:active, .LoginPanel a.dnnSecondaryAction:hover, .dnnRegistrationForm a.dnnSecondaryAction:active, .dnnRegistrationForm a.dnnSecondaryAction:hover {
+        background: #050533;
+        color: white;
+    }
+ 
+/*------------------- Language --------------------------*/
+.language {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.language .language-object {
+    float: right;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.language .language-object span {
+    float: left;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    margin: 0;
+}
+
+.language .language-object span:first-child {
+    padding-left: 8px;
+}
+
+.language .language-object span img {
+    height: 12px;
+    width: 17px;
+    opacity: 0.3;
+}
+
+.language .language-object span:hover img {
+    opacity: 1;
+}
+
+.language .language-object .Language.selected img {
+    opacity: 1;
+    border-color: #222;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.8);
+}

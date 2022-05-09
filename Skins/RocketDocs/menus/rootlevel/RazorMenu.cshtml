@@ -1,0 +1,22 @@
+@using DotNetNuke.Web.DDRMenu;
+@using System.Dynamic;
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
+    
+@RenderPages(Model.Source.root.Children)
+
+@helper RenderPages(IEnumerable<MenuNode> pages)
+{
+    if (!pages.Any())
+    {
+        return;
+    }
+
+    foreach (var page in pages)
+    {
+        var attrTarget = !string.IsNullOrEmpty(page.Target) ? ("target=\"" + page.Target + "\"") :string.Empty;
+        if (page.Enabled)
+        {
+            <a href="@page.Url" class="w3-button w3-text-white @(page.Breadcrumb ? "w3-indigo" : string.Empty)" @attrTarget>@page.Text</a>
+        }
+    }    
+}

@@ -37,7 +37,34 @@
 				</resourceFiles>
 			</component>
 
-      <component type="Assembly">
+		  <component type="Skin">
+			  <skinFiles>
+				  <basePath>Portals\_default\Skins\RocketDocs</basePath>
+				  <skinName>RocketDocs</skinName>
+				  <skinFile>
+					  <path></path>
+					  <name>pane1.ascx</name>
+				  </skinFile>
+				  <skinFile>
+					  <path></path>
+					  <name>pane1.xml</name>
+				  </skinFile>
+				  <skinFile>
+					  <path></path>
+					  <name>skin.css</name>
+				  </skinFile>
+				  <skinFile>
+					  <path>Menus\rootlevel</path>
+					  <name>menudef.xml</name>
+				  </skinFile>
+				  <skinFile>
+					  <path>Menus\rootlevel</path>
+					  <name>RazorMenu.cshtml</name>
+				  </skinFile>
+			  </skinFiles>
+		  </component>
+
+		  <component type="Assembly">
 				<assemblies>
 					<assembly>
 						<path>bin</path>
