@@ -16,7 +16,7 @@
         <div class="w3-col m8">
             <dnn:MENU ID="MENU" MenuStyle="Menus/rootlevel" runat="server" NodeSelector="*" />
         </div>
-        <div class="w3-col m4">
+        <div class="w3-col m4" style="padding-right:80px;">
             <dnn:LOGIN ID="dnnLogin" CssClass="w3-button w3-margin-left w3-text-white w3-right" runat="server" LegacyMode="false" />
             <span class="w3-right">
                 <dnn:LANGUAGE runat="server" id="LANGUAGE1" showMenu="False" showLinks="True" />
@@ -24,13 +24,12 @@
         </div>
     </div>
 
-    <div id="ContentPane" class="w3-row contentPane" runat="server" style="padding-top:40px;"></div>  
+    <div id="ContentPane" class="w3-row contentPane" runat="server" style="margin-top:40px;"></div>  
 
 </div>
 
-    <script type="text/javascript" src="/DesktopModules/DNNrocket/Simplisity/js/simplisity.js"></script>
-
-    <link rel="stylesheet" href="/DesktopModules/DNNrocket/css/w3.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rocket-CDS/DNNrocket@master/Simplisity/js/simplisity.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
