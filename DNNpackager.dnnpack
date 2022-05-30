@@ -24,6 +24,14 @@
   <file include='false'>
   </file>
   <file include='true'>
+	  <value>\Skins\RocketDocs\pane1.ascx</value>
+	  <value>\Skins\RocketDocs\pane1.xml</value>
+	  <value>\Skins\RocketDocs\sidecat.ascx</value>
+	  <value>\Skins\RocketDocs\sidecat.xml</value>
+	  <value>\Skins\RocketDocs\skin.css</value>
+
+	  <value>\Skins\RocketDocs\menus.zip</value>
+
   </file>    
   <assembly>
 		<value>RocketDocs.dll</value>

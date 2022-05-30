@@ -47,21 +47,30 @@
 				  </skinFile>
 				  <skinFile>
 					  <path></path>
+					  <name>sidecat.xml</name>
+				  </skinFile>
+				  <skinFile>
+					  <path></path>
+					  <name>sidecat.ascx</name>
+				  </skinFile>
+				  <skinFile>
+					  <path></path>
 					  <name>pane1.xml</name>
 				  </skinFile>
 				  <skinFile>
 					  <path></path>
 					  <name>skin.css</name>
 				  </skinFile>
-				  <skinFile>
-					  <path>Menus\rootlevel</path>
-					  <name>menudef.xml</name>
-				  </skinFile>
-				  <skinFile>
-					  <path>Menus\rootlevel</path>
-					  <name>RazorMenu.cshtml</name>
-				  </skinFile>
 			  </skinFiles>
+		  </component>
+		  <!-- Menus, Partials, and Root -->
+		  <component type="ResourceFile">
+			  <resourceFiles>
+				  <basePath>Portals\_default\Skins\RocketDocs</basePath>
+				  <resourceFile>
+					  <name>menus.zip</name>
+				  </resourceFile>
+			  </resourceFiles>
 		  </component>
 
 		  <component type="Assembly">
