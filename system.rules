@@ -6,7 +6,16 @@
   <active>True</active>
   <icon>auto_awesome_motion</icon>
 
-  <groupsdata list="true">
+	<sqlindex list="true">
+		<genxml>
+			<systemkey>rocketdocs</systemkey>
+			<ref>articlename</ref>
+			<xpath>genxml/lang/genxml/textbox/articlename</xpath>
+			<typecode>rocketdocsART</typecode>
+		</genxml>
+	</sqlindex>
+
+	<groupsdata list="true">
     <genxml>
       <textbox>
         <groupref>catalog</groupref>
