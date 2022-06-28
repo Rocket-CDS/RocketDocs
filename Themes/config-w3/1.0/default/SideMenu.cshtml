@@ -7,12 +7,13 @@
 
 @AddProcessData("resourcepath", "/DesktopModules/DNNrocket/api/App_LocalResources/")
 @AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketCatalog/App_LocalResources")
+@AddProcessData("resourcepath", "/DesktopModules/DNNrocketModules/RocketDocs/App_LocalResources")
 
 @{
     var systemGloablData = new SystemGlobalData();
     var portalData = new PortalLimpet(PortalUtils.GetPortalId());
-    var portalCat = (PortalCatalogLimpet)Model.GetDataObject("portalcatalog");
     var systemData = (SystemLimpet)Model.GetDataObject("systemdata");
+    var portalCat = (PortalCatalogLimpet)Model.GetDataObject("portalcatalog");
     var sessionParams = Model.SessionParamsData;
     var enabledlanguages = DNNrocketUtils.GetCultureCodeList();
 }
@@ -25,22 +26,30 @@
         var rtn = "";
         if (rinterface.IsOnMenu)
         {
-            var interfaceName = ResourceKey("SideMenu." + rinterface.InterfaceKey).ToString();
-            if (interfaceName == "")
+            var securityData = new SecurityLimpet(PortalUtils.GetPortalId(), "rocketcatalog", rinterface, -1, -1);
+            if (securityData.HasSecurityAccess(rinterface.DefaultCommand))
             {
-                interfaceName = rinterface.InterfaceKey;
-            }
-            if (submenu)
-            {
-                rtn = "<div class='w3-bar-item w3-button w3-margin-left  simplisity_click' s-cmd='" + rinterface.DefaultCommand + "' s-fields='{\"track\":\"true\"}'><strong>" + interfaceName + "</strong></div>";
-            }
-            else
-            {
-                rtn = "<div class='w3-bar-item w3-button w3-padding-16 simplisity_click' s-cmd='" + rinterface.DefaultCommand + "'  s-fields='{\"track\":\"true\"}'><strong><span class='material-icons'>" + rinterface.InterfaceIcon + "</span>&nbsp;" + interfaceName + "</strong></div>";
+                var interfaceName = DNNrocketUtils.GetResourceString(systemData.SystemRelPath + "/App_LocalResources", "SideMenu." + rinterface.InterfaceKey, "Text", DNNrocketUtils.GetCurrentCulture());
+                if (interfaceName == "")
+                {
+                    interfaceName = DNNrocketUtils.GetResourceString(rinterface.TemplateRelPath + "/App_LocalResources", "SideMenu." + rinterface.InterfaceKey, "Text", DNNrocketUtils.GetCurrentCulture());
+                }
+                if (interfaceName == "")
+                {
+                    interfaceName = rinterface.InterfaceKey;
+                }
+                if (submenu)
+                {
+                    rtn = "<div class='w3-bar-item w3-button w3-margin-left  sidemenubutton sidemenu" + rinterface.InterfaceKey + " simplisity_click' s-cmd='" + rinterface.DefaultCommand + "' s-fields='{\"track\":\"true\",\"systemkey\":\"" + systemData.SystemKey + "\"}' style='width: 280px;' ><strong>" + interfaceName + "</strong></div>";
+                }
+                else
+                {
+                    rtn = "<div class='w3-bar-item w3-button w3-padding-16  sidemenubutton sidemenu" + rinterface.InterfaceKey + " simplisity_click' s-cmd='" + rinterface.DefaultCommand + "'  s-fields='{\"track\":\"true\",\"systemkey\":\"" + systemData.SystemKey + "\"}' style='width: 280px;'><strong><span class='material-icons'>" + rinterface.InterfaceIcon + "</span>&nbsp;" + interfaceName + "</strong></div>";
+                }
             }
         }
         return new RawString(rtn);
-    }
+    } 
 }
 
 <nav class="w3-sidebar w3-collapse w3-white  w3-card" style="z-index:3;width:280px;" id="mySidebar">
@@ -71,8 +80,7 @@
                 }
                 else
                 {
-
-                    var groupName = ResourceKey("SideMenu." + groupref).ToString();
+                    var groupName = DNNrocketUtils.GetResourceString(systemData.SystemRelPath + "/App_LocalResources", "SideMenu." + groupref, "Text", DNNrocketUtils.GetCurrentCulture());
                     if (groupName == "")
                     {
                         groupName = groupref;
@@ -177,9 +185,11 @@
             $('#adminmenu').slideToggle();
         });
 
-        simplisity_setSessionField('culturecode', '@sessionParams.CultureCode')
-        simplisity_setSessionField('culturecodeedit', '@sessionParams.CultureCodeEdit')
+        simplisity_setSessionField('culturecode', '@(sessionParams.CultureCode)')
+        simplisity_setSessionField('culturecodeedit', '@(sessionParams.CultureCodeEdit)')
 
+        var s = simplisity_getCookieValue("rocketportal_tabselector")	
+ 
     });
 
 function selectMenu(interfacekey) {
@@ -188,3 +198,5 @@ function selectMenu(interfacekey) {
 }
 
 </script>
+
+
